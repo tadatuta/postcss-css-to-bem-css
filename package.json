@@ -1,0 +1,26 @@
+{
+  "name": "postcss-css-to-bem-css",
+  "version": "1.0.0",
+  "description": "CSS to rebem-css converter",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "postcss",
+    "bem",
+    "css",
+    "rebem"
+  ],
+  "author": "Vladimir Grinenko <i@tadatuta.com>",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "@bem/sdk.naming.entity.parse": "^0.2.7",
+    "@bem/sdk.naming.presets": "^0.1.0",
+    "postcss": "^6.0.23",
+    "postcss-selector-parser": "^5.0.0-rc.3"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
