@@ -6,7 +6,7 @@
 
 ```js
 const postcss = require('postcss');
-const bemCss = require('postcss-css-to-bem-css);
+const bemCss = require('postcss-css-to-bem-css');
 
 postcss([bemCss]).process('.b1 {}', { from: undefined })
     .then(result => console.log(result.css)); // :block(b1) {}
