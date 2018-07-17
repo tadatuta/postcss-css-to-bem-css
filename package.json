@@ -1,0 +1,46 @@
+{
+  "name": "postcss-css-to-bem-css",
+  "version": "1.0.0",
+  "description": "PostCSS plugin to convert CSS to different BEM notations",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "bem",
+    "naming",
+    "rebem",
+    "codestyle"
+  ],
+  "author": "Vladimir Grinenko <i@tadatuta.com>",
+  "license": "MIT",
+  "repository": "tadatuta/postcss-css-to-bem-css",
+  "bugs": {
+    "url": "https://github.com/tadatuta/postcss-css-to-bem-css/issues"
+  },
+  "homepage": "https://github.com/tadatuta/postcss-css-to-bem-css",
+  "dependencies": {
+    "@bem/sdk.naming.entity.parse": "^0.2.7",
+    "@bem/sdk.naming.presets": "^0.2.0",
+    "postcss": "^6.0.23",
+    "postcss-selector-parser": "^5.0.0-rc.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.1.0",
+    "eslint-config-logux": "^23.0.2",
+    "eslint-config-postcss": "^3.0.2",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^21.17.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "jest": "^23.4.1"
+  },
+  "scripts": {
+    "test": "eslint *.js && jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
