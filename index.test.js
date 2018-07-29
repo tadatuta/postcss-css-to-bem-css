@@ -24,31 +24,36 @@ function runOrigin (input, output, opts) {
 }
 
 describe('postcss-css-to-bem-css', () => {
-  describe('default [react]', () => {
+  describe('default [origin -> react]', () => {
     it('should convert block', () => run('.b1 {}', '.B1 {}'))
+    it('should convert block with long name', () => run('.block-with-long-name {}', '.BlockWithLongName {}'))
     it('should convert block nested in tag', () => run('h1 .b1 {}', 'h1 .B1 {}'))
     it('should convert mixes', () => run('.parent.b1 {}', '.Parent.B1 {}'))
     it('should convert nested blocks', () => run('.parent .b1 {}', '.Parent .B1 {}'))
     it('should convert elem', () => run('.b1__e1 {}', '.B1-E1 {}'))
+    it('should convert elem with long name', () => run('.block-with-long-name__elem-with-long-name {}',
+      '.BlockWithLongName-ElemWithLongName {}'))
     it('should convert boolean modifier', () => run('.b1_m1 {}', '.B1_m1 {}'))
     it('should convert key/value modifier', () => run('.b1_m1_v1 {}', '.B1_m1_v1 {}'))
     it('should convert elem boolean modifier', () => run('.b1__e1_m1 {}', '.B1-E1_m1 {}'))
     it('should convert elem key/value modifier', () => run('.b1__e1_m1_v1 {}', '.B1-E1_m1_v1 {}'))
   })
 
-  describe('origin', () => {
+  describe('react -> origin', () => {
     it('should convert block', () => runOrigin('.B1 {}', '.b1 {}'))
     it('should convert block nested in tag', () => runOrigin('h1 .B1 {}', 'h1 .b1 {}'))
     it('should convert mixes', () => runOrigin('.Parent.B1 {}', '.parent.b1 {}'))
     it('should convert nested blocks', () => runOrigin('.Parent .B1 {}', '.parent .b1 {}'))
     it('should convert elem', () => runOrigin('.B1-E1 {}', '.b1__e1 {}'))
+    it('should convert elem with long name', () => runOrigin('.BlockWithLongName-ElemWithLongName {}',
+      '.block-with-long-name__elem-with-long-name {}'))
     it('should convert boolean modifier', () => runOrigin('.B1_m1 {}', '.b1_m1 {}'))
     it('should convert key/value modifier', () => runOrigin('.B1_m1_v1 {}', '.b1_m1_v1 {}'))
     it('should convert elem boolean modifier', () => runOrigin('.B1-E1_m1 {}', '.b1__e1_m1 {}'))
     it('should convert elem key/value modifier', () => runOrigin('.B1-E1_m1_v1 {}', '.b1__e1_m1_v1 {}'))
   })
 
-  describe('rebem-css', () => {
+  describe('origin -> rebem-css', () => {
     it('should convert block', () => runRebem('.b1 {}', ':block(b1) {}'))
     it('should convert block nested in tag', () => runRebem('h1 .b1 {}', 'h1 :block(b1) {}'))
     it('should convert mixes', () => runRebem('.parent.b1 {}', ':block(parent):block(b1) {}'))

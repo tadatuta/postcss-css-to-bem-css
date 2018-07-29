@@ -4,16 +4,13 @@ const postcss = require('postcss')
 const selectorParser = require('postcss-selector-parser')
 const bemNamingParse = require('@bem/sdk.naming.entity.parse')
 const bemNamingPresets = require('@bem/sdk.naming.presets')
+const { toCamelCase, toKebabCase } = require('./lib/helpers')
 
-function capitalize (str) {
-  return str && str[0].toUpperCase() + str.substr(1)
-}
-
-function getEntity (selector, naming) {
-  const entity = bemNamingParse(naming)(selector)
+function getEntity (str, naming) {
+  const entity = bemNamingParse(naming)(str)
 
   if (!entity) {
-    console.warn('WARN! Entity was not parsed for selector', selector)
+    console.warn('WARN! Entity was not parsed for', str)
     return undefined
   }
 
@@ -45,14 +42,18 @@ function buildRebemSelector (entity) {
   return bemSelector
 }
 
+const defaultNameTransform = {
+  block: block => block,
+  elem: elem => elem,
+  modName: modName => modName,
+  modVal: modVal => modVal
+}
+
 function buildSelectorByNaming (entity, namingScheme, nameTransforms) {
   const namingDelims = namingScheme.delims
 
   const transforms = {
-    block: block => block,
-    elem: elem => elem,
-    modName: modName => modName,
-    modVal: modVal => modVal,
+    ...defaultNameTransform,
     ...nameTransforms
   }
 
@@ -65,15 +66,15 @@ function buildSelectorByNaming (entity, namingScheme, nameTransforms) {
 
 function buildReactSelector (entity) {
   return buildSelectorByNaming(entity, bemNamingPresets.react, {
-    block: capitalize,
-    elem: capitalize
+    block: toCamelCase,
+    elem: toCamelCase
   })
 }
 
 function buildOriginSelector (entity) {
   return buildSelectorByNaming(entity, bemNamingPresets.origin, {
-    block: block => block.toLowerCase(),
-    elem: elem => elem.toLowerCase()
+    block: toKebabCase,
+    elem: toKebabCase
   })
 }
 
