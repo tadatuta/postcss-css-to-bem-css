@@ -20,7 +20,9 @@
   "homepage": "https://github.com/tadatuta/postcss-css-to-bem-css",
   "dependencies": {
     "@bem/sdk.naming.entity.parse": "^0.2.7",
+    "@bem/sdk.naming.entity.stringify": "^1.1.1",
     "@bem/sdk.naming.presets": "^0.2.0",
+    "bem-naming-transformations": "^1.0.1",
     "postcss": "^6.0.23",
     "postcss-selector-parser": "^5.0.0-rc.3"
   },
@@ -35,7 +37,8 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^3.1.0",
-    "jest": "^23.4.1"
+    "jest": "^23.4.1",
+    "postcss-nested": "^3.0.0"
   },
   "scripts": {
     "test": "eslint *.js && jest"

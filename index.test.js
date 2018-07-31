@@ -2,9 +2,10 @@
 
 const postcss = require('postcss')
 const plugin = require('./')
+const nested = require('postcss-nested')
 
 function run (input, output, opts) {
-  return postcss([plugin(opts)]).process(input)
+  return postcss([nested, plugin(opts)]).process(input)
     .then(result => {
       expect(result.css).toEqual(output)
       expect(result.warnings()).toHaveLength(0)
@@ -12,13 +13,28 @@ function run (input, output, opts) {
 }
 
 function runRebem (input, output, opts) {
-  return run(input, output, { buildSelector: plugin.builders.buildRebemSelector, ...opts })
+  return run(input, output, {
+    targetNaming: 'origin',
+    transforms: {
+      block: block => `:block(${ block })`,
+      elem: elem => `:elem(${ elem })`,
+      modName: modName => `:mod(${ modName }`,
+      modVal: modVal => ` ${ modVal })`
+    },
+    stringify: bemEntityName => {
+      let result = bemEntityName.block
+      if (bemEntityName.elem) result += bemEntityName.elem
+      if (bemEntityName.mod) result += bemEntityName.mod.name + bemEntityName.mod.val
+      return result
+    },
+    ...opts
+  })
 }
 
 function runOrigin (input, output, opts) {
   return run(input, output, {
-    buildSelector: plugin.builders.buildOriginSelector,
-    naming: 'react',
+    sourceNaming: 'react',
+    targetNaming: 'origin',
     ...opts
   })
 }
@@ -61,18 +77,34 @@ describe('postcss-css-to-bem-css', () => {
     it('should convert elem', () => runRebem('.b1__e1 {}', ':block(b1):elem(e1) {}'))
     it('should convert boolean modifier', () => runRebem('.b1_m1 {}', ':block(b1):mod(m1 true) {}'))
     it('should convert key/value modifier', () => runRebem('.b1_m1_v1 {}', ':block(b1):mod(m1 v1) {}'))
-    it('should convert elem boolean modifier', () => runRebem('.b1__e1_m1 {}', ':block(b1):elem(e1):mod(m1 true) {}'))
+    it('should convert elem boolean modifier', () =>
+      runRebem('.b1__e1_m1 {}', ':block(b1):elem(e1):mod(m1 true) {}'))
     it('should convert elem key/value modifier', () =>
       runRebem('.b1__e1_m1_v1 {}', ':block(b1):elem(e1):mod(m1 v1) {}'))
   })
 
   describe('custom', () => {
-    it('should convert custom naming scheme', () =>
-      runRebem('.B1-E1 {}', ':block(B1):elem(E1) {}', { naming: 'react' }))
+    it('should convert custom naming scheme', () => {
+      // TBD
+    })
+  })
+
+  describe('prefix', () => {
+    it('origin -> origin', () => run('.b1__e1 {}', '.b-b1__e1 {}', {
+      sourceNaming: 'origin',
+      targetNaming: 'origin',
+      transforms: { prefix: 'b-' }
+    }))
+
+    it('react -> origin', () => run('.B1-E1 {}', '.b-b1__e1 {}', {
+      sourceNaming: 'react',
+      targetNaming: 'origin',
+      transforms: { prefix: 'b-' }
+    }))
   })
 
   describe('other cases', () => {
-    it('should keep invalid selectors as is', () => runRebem('.b1__e1__subelem {}', '.b1__e1__subelem {}'))
-    it('should convert nested selectors', () => runRebem('__e1 {}', ':elem(e1) {}'))
+    it('should keep invalid selectors as is', () => run('.b1__e1__subelem {}', '.b1__e1__subelem {}'))
+    it('should convert nested selectors', () => run('.b1 { &__e1 {} }', '.B1-E1 {}'))
   })
 })
