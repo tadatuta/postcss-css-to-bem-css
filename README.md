@@ -21,8 +21,21 @@
 ## Usage
 
 ```js
-postcss([ require('postcss-css-to-bem-css') ])
+postcss([
+    require('postcss-css-to-bem-css')({
+        sourceNaming: 'origin',
+        targetNaming: 'react'
+    })
+])
 ```
+
+### Options
+* sourceNaming
+* targetNaming
+* transforms
+* stringify
+
+For examples please refer to [specs](https://github.com/tadatuta/postcss-css-to-bem-css/blob/master/index.test.js).
 
 See [PostCSS] docs for examples for your environment.
 
