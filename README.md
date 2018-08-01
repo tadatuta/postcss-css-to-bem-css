@@ -1,6 +1,6 @@
 # PostCSS Css To Bem Css [![Build Status][ci-img]][ci]
 
-[PostCSS] plugin to convert CSS to different BEM notations.
+[PostCSS] plugin to convert CSS to different [BEM notations](https://en.bem.info/methodology/naming-convention/).
 
 [PostCSS]: https://github.com/postcss/postcss
 [ci-img]:  https://travis-ci.org/tadatuta/postcss-css-to-bem-css.svg
