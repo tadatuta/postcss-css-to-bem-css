@@ -103,6 +103,12 @@ describe('postcss-css-to-bem-css', () => {
     }))
   })
 
+  describe('classes in attributes', () => {
+    it('basic', () => run(`[class='block_mod'] {}`, `[class='Block_mod'] {}`))
+    it('glob', () => run(`[class*='block_mod'] {}`, `[class*='Block_mod'] {}`))
+    it('class with attribute', () => run(`.b1[class*='block_mod'] {}`, `.B1[class*='Block_mod'] {}`))
+  })
+
   describe('other cases', () => {
     it('should keep invalid selectors as is', () => run('.b1__e1__subelem {}', '.b1__e1__subelem {}'))
     it('should convert nested selectors', () => run('.b1 { &__e1 {} }', '.B1-E1 {}'))
