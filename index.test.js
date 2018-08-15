@@ -107,9 +107,8 @@ describe('postcss-css-to-bem-css', () => {
     it('should keep invalid selectors as is', () => run('.b1__e1__subelem {}', '.b1__e1__subelem {}'))
     it('should convert nested selectors', () => run('.b1 { &__e1 {} }', '.B1-E1 {}'))
     it('should drop `yes` as modificator value', () => run('.b1_mod_yes {}', '.B1_mod {}', {
-      transforms: {
-        modVal: modVal => modVal === 'yes' ? true : modVal
-      }
+      transforms: { modVal: modVal => modVal === 'yes' ? true : modVal }
     }))
+    it('should ignore blacklisted entities', () => run('.b1 {}', '.b1 {}', { blacklist: ['b1'] }))
   })
 })

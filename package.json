@@ -22,7 +22,7 @@
     "@bem/sdk.naming.entity.parse": "^0.2.7",
     "@bem/sdk.naming.entity.stringify": "^1.1.1",
     "@bem/sdk.naming.presets": "^0.2.0",
-    "bem-naming-transformations": "^1.0.1",
+    "bem-naming-transformations": "^1.1.0",
     "postcss": "^6.0.23",
     "postcss-selector-parser": "^5.0.0-rc.3"
   },
