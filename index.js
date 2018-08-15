@@ -1,49 +1,12 @@
 'use strict'
 
 const postcss = require('postcss')
-const selectorParser = require('postcss-selector-parser')
-const bemNamingEntityParse = require('@bem/sdk.naming.entity.parse')
-const bemNamingEntityStringify = require('@bem/sdk.naming.entity.stringify')
-const bemNamingPresets = require('@bem/sdk.naming.presets')
-const bemEntityNamingTransform = require('bem-naming-transformations')
-
-function normalizeNaming (naming) {
-  return typeof naming === 'string'
-    ? bemNamingPresets[naming]
-    : naming
-}
+const selectorConverter = require('./lib/selector-converter')
 
 module.exports = postcss.plugin('postcss-css-to-bem-css', opts => {
-  opts = opts || {}
-
   return root => {
     root.walkRules(rule => {
-      rule.selector = selectorParser(selectors => {
-        selectors.walkClasses(selector => {
-          const entityName = bemNamingEntityParse(normalizeNaming(opts.sourceNaming || 'origin'))(selector.value)
-
-          if (!entityName) {
-            // TODO: proper debug
-            console.warn(`WARN! ${ selector } was not parsed`)
-            return
-          }
-
-          const transformedEntityName = bemEntityNamingTransform(entityName, {
-            naming: opts.targetNaming,
-            transforms: opts.transforms
-          })
-
-          const targetNaming = normalizeNaming(opts.targetNaming || 'react')
-
-          const newSelector = opts.stringify
-            ? opts.stringify(transformedEntityName, targetNaming)
-            : '.' + bemNamingEntityStringify(targetNaming)(transformedEntityName)
-
-          selector.replaceWith(
-            selectorParser.pseudo({ value: newSelector })
-          )
-        })
-      }).processSync(rule.selector)
+      rule.selector = selectorConverter(rule.selector, opts)
     })
   }
 })
