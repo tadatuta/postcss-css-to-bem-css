@@ -1,6 +1,6 @@
 {
   "name": "postcss-css-to-bem-css",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "PostCSS plugin to convert CSS to different BEM notations",
   "keywords": [
     "postcss",
