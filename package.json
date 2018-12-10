@@ -23,22 +23,24 @@
     "@bem/sdk.naming.entity.stringify": "^1.1.1",
     "@bem/sdk.naming.presets": "^0.2.0",
     "bem-naming-transformations": "^1.1.0",
-    "postcss": "^6.0.23",
+    "postcss": "^7.0.6",
     "postcss-selector-parser": "^5.0.0-rc.3"
   },
   "devDependencies": {
+    "@logux/eslint-config": "^27.0.0",
     "eslint": "^5.1.0",
-    "eslint-config-logux": "^23.0.2",
+    "eslint-config-logux": "^27.0.0",
     "eslint-config-postcss": "^3.0.2",
-    "eslint-config-standard": "^11.0.0",
+    "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jest": "^21.17.0",
-    "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-jest": "^22.1.2",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-prefer-let": "^1.0.1",
+    "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-security": "^1.4.0",
-    "eslint-plugin-standard": "^3.1.0",
+    "eslint-plugin-standard": "^4.0.0",
     "jest": "^23.4.1",
-    "postcss-nested": "^3.0.0"
+    "postcss-nested": "^4.1.0"
   },
   "scripts": {
     "test": "eslint *.js && jest"
