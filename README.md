@@ -34,6 +34,8 @@ postcss([
 * targetNaming
 * transforms
 * stringify
+* blacklist
+* whitelist
 
 For examples please refer to [specs](https://github.com/tadatuta/postcss-css-to-bem-css/blob/master/index.test.js).
 

@@ -110,5 +110,11 @@ describe('postcss-css-to-bem-css', () => {
       transforms: { modVal: modVal => modVal === 'yes' ? true : modVal }
     }))
     it('should ignore blacklisted entities', () => run('.b1 {}', '.b1 {}', { blacklist: ['b1'] }))
+    it('should apply transform only for whitelisted entities', () => run('.b1 {}', '.B1 {}', {
+      whitelist: ['b1']
+    }))
+    it('should not apply transform for non-whitelisted entities', () => run('.b1 {}', '.b1 {}', {
+      whitelist: ['b2']
+    }))
   })
 })
