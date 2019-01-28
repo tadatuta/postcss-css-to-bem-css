@@ -107,6 +107,10 @@ describe('postcss-css-to-bem-css', () => {
     it('basic', () => run(`[class='block_mod'] {}`, `[class='Block_mod'] {}`))
     it('glob', () => run(`[class*='block_mod'] {}`, `[class*='Block_mod'] {}`))
     it('class with attribute', () => run(`.b1[class*='block_mod'] {}`, `.B1[class*='Block_mod'] {}`))
+    it('more than 1 attribute', () => run(
+      `.b1[class*='block_mod'][type='any'] {}`,
+      `.B1[class*='Block_mod'][type='any'] {}`
+    ))
   })
 
   describe('other cases', () => {
