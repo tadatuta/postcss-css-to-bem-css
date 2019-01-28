@@ -10,6 +10,7 @@ module.exports = {
         'multiline-ternary': 'off',
         'max-len': ['error', { code: 120 }],
         'no-nested-ternary': 'off',
-        'node/no-unsupported-features/es-syntax': 'off'
+        'node/no-unsupported-features/es-syntax': 'off',
+        'prefer-let/prefer-let': 'off'
     }
 }
