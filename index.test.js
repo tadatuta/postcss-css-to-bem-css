@@ -103,6 +103,14 @@ describe('postcss-css-to-bem-css', () => {
     }))
   })
 
+  describe('suffix', () => {
+    it('origin -> origin', () => run('.b1__e1 {}', '.b1-suf__e1 {}', {
+      sourceNaming: 'origin',
+      targetNaming: 'origin',
+      transforms: { suffix: '-suf' }
+    }))
+  })
+
   describe('other cases', () => {
     it('should keep invalid selectors as is', () => run('.b1__e1__subelem {}', '.b1__e1__subelem {}'))
     it('should convert nested selectors', () => run('.b1 { &__e1 {} }', '.B1-E1 {}'))
