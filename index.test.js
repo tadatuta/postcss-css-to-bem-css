@@ -101,6 +101,10 @@ describe('postcss-css-to-bem-css', () => {
       targetNaming: 'origin',
       transforms: { prefix: 'b-' }
     }))
+
+    it('prefix only', () => run('.Button2_size_m .Button2-Icon {}', '.Captcha-Button2_size_m .Captcha-Button2-Icon {}', {
+      transforms: { prefix: 'Captcha-' }
+    }))
   })
 
   describe('suffix', () => {
